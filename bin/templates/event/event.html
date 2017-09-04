@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Event</title>
+</head>
+<body>
+	<fieldset>
+		<legend>Create</legend>
+		<form action="/event/create" method="post">
+			<input type="hidden" name="userId" th:value="${session.user.id}"/>
+			<input type="text" required="required" name="name" placeholder="Event name" /><br/><br/>
+			<input type="text" name="description" placeholder="Description" /><br/><br/>
+			<input type="submit" /><br/><br/>
+		</form>
+	</fieldset>
+	<fieldset>
+		<legend>Event(s)</legend>
+		<table>
+		<thead>
+			<tr>
+				<td>Event</td>
+				<td>Description</td>
+				<td>Action</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="event : ${events}">
+				<td th:text="${event.name}"></td>
+				<td th:text="${event.description}"></td>
+				<td><button th:attr="data-id=${event.id}">Open</button> <button th:attr="data-id=${event.id}">Delete</button></td>	
+			</tr>
+		</tbody>
+		</table>
+	</fieldset>
+</body>
+</html>
