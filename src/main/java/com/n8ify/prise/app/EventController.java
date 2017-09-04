@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,7 +17,7 @@ import com.n8ify.prise.entity.form.EventForm;
 import com.n8ify.prise.service.EventService;
 
 @Controller
-@RequestMapping(value = "/event")
+@RequestMapping(value = "/events")
 public class EventController {
 	
 	Logger logger = LoggerFactory.getLogger(EventController.class);
@@ -27,13 +28,31 @@ public class EventController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model){
 		model.addAttribute("events", eventService.findByUserId(((User)request.getSession(false).getAttribute("user")).getId()));
-		return "event/event";
+		return "event/events";
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public String create(@ModelAttribute EventForm eventForm){
 		logger.info(eventForm.toString());
 		eventService.saveEvent(eventForm);
+		return "redirect:/events/";
+	}
+	
+	@RequestMapping(value = "view/{id}", method = RequestMethod.GET)
+	public String view(HttpServletRequest request, Model model){
+		
+		return "event/event";
+	}
+	
+	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+	public String edit(HttpServletRequest request, @PathVariable(name = "id") int id){
+		eventService.deleteEvent(id);
+		return "redirect:/event/";
+	}
+	
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+	public String delete(HttpServletRequest request, @PathVariable(name = "id") int id){
+		eventService.deleteEvent(id);
 		return "redirect:/event/";
 	}
 }

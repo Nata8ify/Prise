@@ -31,7 +31,7 @@ public class AccountController {
 		if(user != null){
 			request.getSession(true).setAttribute("user", user);
 			model.addAttribute("events", eventService.findAll());
-			return "redirect:/event/";	
+			return "redirect:/events/";	
 		} else {
 			return "redirect:/";	
 		}

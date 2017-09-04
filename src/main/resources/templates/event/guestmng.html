@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Guest Manager</title>
+</head>
+<body>
+	<fieldset>
+		<legend>Insert Guest</legend>
+		<form action="/guest/create" method="post">
+			<input name="name" id="input-name" type="text" placeholder="Name" required="required"/><br/><br/>
+			<input name="position" id="input-position" type="text" placeholder="Position" /><br/><br/>
+			<input name="corp" id="input-corp" type="text" placeholder="Corporation" /><br/><br/>
+			<input name="awardNo" id="input-award-no" type="text" placeholder="Award Number" /><br/><br/>
+			<input name="award" id="input-award" type="text" placeholder="Award" required="required"/><br/><br/>
+			<input name="seatNo" id="input-seat-no" type="text" placeholder="Seat Number" /><br/><br/>
+			<input name="seatRow" id="input-seat-row" type="text" placeholder="Seat Row" /><br/><br/>
+			<input name="status" id="input-status" type="text" placeholder="Status" required="required"/><br/><br/>
+			<input name="eventId" id="input-event-id" type="hidden" required="required"/><br/><br/>
+			<input name="portraitPath" id="input-portrait_path" type="file" placeholder=""  /><br/><br/>
+			<input type="submit"/><br/><br/>
+		</form>
+	</fieldset>
+</body>
+</html>

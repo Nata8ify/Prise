@@ -35,4 +35,12 @@ public class EventService {
 	public List<Event> findByUserId(int userId){
 		return eventRepository.findByUserId(userId);
 	}
+	
+	public void updateEvent(EventForm eventForm){
+		//TODO Update
+	}
+	
+	public void deleteEvent(int id){
+		eventRepository.delete(id);
+	}
 }
