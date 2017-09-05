@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.n8ify.prise.entity.User;
 import com.n8ify.prise.entity.form.EventForm;
 import com.n8ify.prise.service.EventService;
+import com.n8ify.prise.service.GuestService;
 
 @Controller
 @RequestMapping(value = "/events")
@@ -24,6 +25,9 @@ public class EventController {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private GuestService guestService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model){
@@ -39,8 +43,8 @@ public class EventController {
 	}
 	
 	@RequestMapping(value = "view/{id}", method = RequestMethod.GET)
-	public String view(HttpServletRequest request, Model model){
-		
+	public String view(HttpServletRequest request, Model model, @PathVariable("id") int id){
+		model.addAttribute("event",eventService.findById(id));
 		return "event/event";
 	}
 	
@@ -54,5 +58,12 @@ public class EventController {
 	public String delete(HttpServletRequest request, @PathVariable(name = "id") int id){
 		eventService.deleteEvent(id);
 		return "redirect:/event/";
+	}
+	
+	@RequestMapping(value = "/manage/{id}", method = RequestMethod.GET)
+	public String manage(HttpServletRequest request, Model model, @PathVariable("id") int id){
+		model.addAttribute("event", eventService.findById(id));
+		model.addAttribute("guests", guestService.findByEventId(id));
+		return "event/eventmng";
 	}
 }

@@ -7,8 +7,12 @@
 <body>
 	<fieldset>
 		<legend>Manage</legend>
-		<a href="../guest/manage">Manage</a>
+		<a th:href="'../manage/'+${id}">Manage</a>
 	</fieldset>
+	<div th:object="${event}">
+		<h2 th:text="*{name}"></h2>
+		<p th:text="*{description}"></p>
+	</div>
 	<fieldset>
 		<legend>Guests</legend>
 		<!-- DataTable -->

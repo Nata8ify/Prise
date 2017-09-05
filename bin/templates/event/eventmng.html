@@ -5,6 +5,10 @@
 <title>Guest Manager</title>
 </head>
 <body>
+	<div th:object="${event}">
+		<h2 th:text="*{name}"></h2>
+		<p th:text="*{description}"></p>
+	</div>
 	<fieldset>
 		<legend>Insert Guest</legend>
 		<form action="/guest/create" method="post">
@@ -16,10 +20,39 @@
 			<input name="seatNo" id="input-seat-no" type="text" placeholder="Seat Number" /><br/><br/>
 			<input name="seatRow" id="input-seat-row" type="text" placeholder="Seat Row" /><br/><br/>
 			<input name="status" id="input-status" type="text" placeholder="Status" required="required"/><br/><br/>
-			<input name="eventId" id="input-event-id" type="hidden" required="required"/><br/><br/>
+			<input name="eventId" id="input-event-id" type="hidden" required="required" th:value="${event.id}"/><br/><br/>
 			<input name="portraitPath" id="input-portrait_path" type="file" placeholder=""  /><br/><br/>
 			<input type="submit"/><br/><br/>
 		</form>
+			<hr/>
+			Import XSLX : <input type="file"/>
 	</fieldset>
+	<br/><br/>
+	<table>
+		<thead>
+			<tr>
+				<th>Portrait</th>
+				<th>Award Number</th>
+				<th>Award</th>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Corporation / Organization</th>
+				<th>Seat Number</th>
+				<th>Seat Row</th>
+				<th>Action</th>
+			</tr>
+			<tr th:each="guest : ${guests}" th:object="${guest}">
+				<td th:text="*{portraitPath}"></td>
+				<td th:text="*{awardNo}"></td>
+				<td th:text="*{award}"></td>
+				<td th:text="*{name}"></td>
+				<td th:text="*{position}"></td>
+				<td th:text="*{corp}"></td>
+				<td th:text="*{seatNo}"></td>
+				<td th:text="*{seatRow}"></td>
+				<td th:text="*{status}"></td>
+			</tr>
+		</thead>
+	</table>
 </body>
 </html>
